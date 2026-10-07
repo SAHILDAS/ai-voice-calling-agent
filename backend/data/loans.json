@@ -1,0 +1,55 @@
+[
+  {
+    "application_id": "LN1001",
+    "customer_id": "CUST1001",
+    "loan_type": "Personal Loan",
+    "status": "DOCUMENTS_PENDING",
+    "amount": 500000,
+    "currency": "INR",
+    "pending_documents": [
+      "Latest salary slip",
+      "Bank statement for the last 3 months",
+      "Address proof"
+    ],
+    "submitted_documents": [
+      "PAN Card",
+      "Aadhaar Card"
+    ],
+    "interest_rate": null,
+    "emi": null
+  },
+  {
+    "application_id": "LN1002",
+    "customer_id": "CUST1002",
+    "loan_type": "Home Loan",
+    "status": "UNDER_REVIEW",
+    "amount": 3500000,
+    "currency": "INR",
+    "pending_documents": [],
+    "submitted_documents": [
+      "PAN Card",
+      "Aadhaar Card",
+      "Income Proof",
+      "Bank Statement"
+    ],
+    "interest_rate": null,
+    "emi": null
+  },
+  {
+    "application_id": "LN1003",
+    "customer_id": "CUST1003",
+    "loan_type": "Personal Loan",
+    "status": "APPROVED",
+    "amount": 750000,
+    "currency": "INR",
+    "pending_documents": [],
+    "submitted_documents": [
+      "PAN Card",
+      "Aadhaar Card",
+      "Salary Slip",
+      "Bank Statement"
+    ],
+    "interest_rate": 10.5,
+    "emi": 16120
+  }
+]
