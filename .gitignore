@@ -1,0 +1,54 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.coverage.*
+.pyright/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+.cache/
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Audio / generated files
+*.wav
+*.mp3
+*.m4a
+*.webm
+*.ogg
+
+# Test / temporary files
+tmp/
+temp/
+coverage/
+
+# Build artifacts
+build/
