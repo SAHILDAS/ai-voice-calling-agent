@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
+from app.api.routes.calls import router as calls_router
 from app.api.routes.customers import router as customers_router
 from app.api.routes.loans import router as loans_router
-
 
 app = FastAPI(
     title="AI Voice Calling Agent",
@@ -10,9 +10,9 @@ app = FastAPI(
     version="0.1.0",
 )
 
-
 app.include_router(customers_router)
 app.include_router(loans_router)
+app.include_router(calls_router)
 
 
 @app.get("/health")
