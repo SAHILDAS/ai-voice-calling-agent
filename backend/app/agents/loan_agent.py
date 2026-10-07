@@ -6,6 +6,7 @@ from app.agents.tool_schemas import TOOL_DEFINITIONS
 from app.providers.llm import LLMProvider
 from app.schemas.conversation import MessageRole
 from app.tools.registry import execute_tool
+from app.agents.intent import IntentClassifier
 
 SYSTEM_PROMPT = """
 You are a professional AI loan customer service agent.
@@ -77,9 +78,11 @@ class LoanAgent:
         self,
         llm_provider: LLMProvider,
         state_manager: ConversationStateManager,
+        intent_classifier: IntentClassifier | None = None,
     ) -> None:
         self.llm_provider = llm_provider
         self.state_manager = state_manager
+        self.intent_classifier = intent_classifier
 
         self.input_items: list[Any] = [
             {
@@ -106,6 +109,13 @@ class LoanAgent:
             MessageRole.CUSTOMER,
             customer_message,
         )
+
+        if self.intent_classifier is not None:
+            intent_result = await self.intent_classifier.classify(
+                customer_message=customer_message,
+                conversation_context=self._build_conversation_context(),
+            )
+            self.state_manager.set_intent(intent_result.intent)
 
         self.input_items.append(
             {

@@ -5,6 +5,7 @@ from app.api.routes.customers import customer_service
 from app.core.config import settings
 from app.calls.manager import call_manager
 from app.schemas.conversation import MessageRole
+from app.providers.openai_intent_classifier import OpenAIIntentClassifier
 from app.providers.openai_provider import OpenAIProvider
 from app.schemas.call import (
     CallSummary,
@@ -45,6 +46,10 @@ def _get_agent(call_id: str) -> LoanAgent:
             model=settings.llm_model,
         ),
         state_manager=state_manager,
+        intent_classifier=OpenAIIntentClassifier(
+            api_key=settings.llm_api_key,
+            model=settings.llm_model,
+        ),
     )
 
 

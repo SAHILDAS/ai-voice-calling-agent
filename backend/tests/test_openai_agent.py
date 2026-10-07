@@ -1,5 +1,7 @@
 import pytest
 
+from app.providers.openai_intent_classifier import OpenAIIntentClassifier
+from app.schemas.conversation import Intent
 from app.agents.loan_agent import LoanAgent
 from app.agents.state import ConversationStateManager
 from app.core.config import settings
@@ -74,3 +76,36 @@ async def test_openai_agent_resolves_document_reference_from_context():
     assert second_response
     assert state_manager.state.last_tool_name == "send_document_upload_link"
     assert state_manager.state.document_upload_link_sent is True
+
+
+
+@pytest.mark.asyncio
+async def test_openai_agent_classifies_document_requirement():
+    if not settings.llm_api_key or not settings.llm_model:
+        pytest.skip("OpenAI configuration is not available.")
+
+    state_manager = ConversationStateManager(
+        call_id="TEST-CALL-003",
+        customer_id="CUST1001",
+        application_id="LN1001",
+    )
+
+    agent = LoanAgent(
+        llm_provider=OpenAIProvider(
+            api_key=settings.llm_api_key,
+            model=settings.llm_model,
+        ),
+        state_manager=state_manager,
+        intent_classifier=OpenAIIntentClassifier(
+            api_key=settings.llm_api_key,
+            model=settings.llm_model,
+        ),
+    )
+
+    response = await agent.respond(
+        "Which documents are still pending for my loan?"
+    )
+
+    assert response
+    assert state_manager.state.current_intent == Intent.DOCUMENT_REQUIREMENT
+
